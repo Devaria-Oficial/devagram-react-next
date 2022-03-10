@@ -5,6 +5,11 @@
   font-size: 14px;
 }
 
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+}
+
 .avatar {
   border-radius: 50%;
   object-fit: cover;
@@ -14,5 +19,49 @@
   display: none;
 }
 
+input {
+  &::placeholder {
+    /* chrome, opera, safari e firefox */
+    color: $cinza2;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    /*ie 10-11*/
+    color: $cinza2;
+  }
+
+  &::-ms-input-placeholder {
+    color: $cinza2;
+  }
+}
+
+.desktop {
+  display: block;
+
+  @media screen and (max-width: calc($desktopBreakpoint - 1px)) {
+    display: none;
+  }
+}
+
+.mobile {
+  display: block;
+
+  @media screen and (min-width: $desktopBreakpoint) {
+    display: none;
+  }
+}
+
+.mensagemValidacao {
+  display: block;
+  color: $vermelho;
+  font-size: 90%;
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
+
 @import '../public/fonts/fonts.scss';
 @import '../componentes/botao/botao.scss';
+@import './paginaPublica.scss';
+@import '../componentes/inputPublico/inputPublico.scss';
+@import '../pages/cadastro/cadastro.scss';
