@@ -60,8 +60,28 @@ input {
   margin-bottom: 15px;
 }
 
+.barraNavegacao {
+  ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 10px 0px;
+
+    li {
+      list-style: none;
+      cursor: pointer;
+    }
+  }
+}
+
+strong {
+  font-family: $fontBold;
+}
+
 @import '../public/fonts/fonts.scss';
 @import '../componentes/botao/botao.scss';
 @import './paginaPublica.scss';
 @import '../componentes/inputPublico/inputPublico.scss';
 @import '../pages/cadastro/cadastro.scss';
+@import '../componentes/layout/cabecalho.scss';
+@import '../componentes/layout/rodape.scss';
