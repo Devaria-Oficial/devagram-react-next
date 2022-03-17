@@ -1,0 +1,100 @@
+.feedContainer {
+    padding-bottom: 60px;
+    background-color: $branco;
+    margin-top: 16px;
+
+    .postagem {
+        .avatar {
+            height: 32px;
+            width: 32px;
+            margin-right: 8px;
+        }
+
+        .cabecalhoPostagem {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            margin-bottom: 8px;
+
+            strong {
+                font-size: 12px;
+                color: $cinza4;
+            }
+        }
+
+        .fotoDaPostagem {
+            img {
+                width: 100%;
+                height: auto;
+                max-height: 360px;
+                object-fit: cover;
+            }
+        }
+
+        .rodapeDaPostagem {
+            padding: 5px 16px;
+
+            strong.nomeUsuario {
+                font-size: 12px;
+                float: left;
+                margin-right: 4px;
+                color: $cinza4;
+            }
+
+            p.descricao {
+                font-size: 12px;
+                margin: 0 0 2px;
+                color: $cinza4;
+
+                .exibirDescricaoCompleta {
+                    font-size: 12px;
+                    color: $corPrimaria3;
+                    margin-left: 4px;
+                    cursor: pointer;
+                }
+            }
+
+            .acoesDaPostagem {
+                display: flex;
+                align-items: center;
+                margin-bottom: 6px;
+
+                > span {
+                    margin-right: 5px !important;
+                }
+
+                .quantidadeCurtidas {
+                    font-family: $fontLight;
+                    font-size: 10px;
+                    color: $cinza4;
+
+                    strong {
+                        font-size: 10px;
+                        color: $cinza4;
+                    }
+                }
+            }
+        }
+
+        .containerFazerComentario {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            margin-bottom: 16px;
+
+            textarea {
+                resize: none;
+                flex: 1;
+                max-width: 100%;
+                border: none;
+                outline: none;
+                font-size: 12px;
+                color: $cinza2;
+            }
+        }
+    }
+
+    @media screen and (min-width: $desktopBreakpoint) {
+        padding-top: 8px;
+    }
+}

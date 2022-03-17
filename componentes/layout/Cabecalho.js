@@ -4,43 +4,40 @@ import logoHorizontalImg from '../../public/imagens/logoHorizontal.svg';
 import imagemLupa from '../../public/imagens/lupa.svg';
 import Navegacao from './Navegacao';
 import ResultadoPesquisa from './ResultadoPesquisa';
+import UsuarioService from '../../services/UsuarioService';
+import { useRouter } from 'next/router';
+
+const usuarioService = new UsuarioService();
 
 export default function Cabecalho() {
     const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
-    const [termoPesquisado, setTermoPesquisado] = useState([]);
+    const [termoPesquisado, setTermoPesquisado] = useState('');
+    const router = useRouter();
 
-    const aoPesquisar = (e) => {
+    const aoPesquisar = async (e) => {
         setTermoPesquisado(e.target.value);
         setResultadoPesquisa([]);
 
-        if (termoPesquisado.length < 3) {
+        if (e.target.value.length < 3) {
             return;
         }
 
-        setResultadoPesquisa([
-            {
-                avatar: '',
-                nome: 'Douglas',
-                email: 'douglas@devagram.com',
-                _id: '3242432'
-            },
-            {
-                avatar: '',
-                nome: 'Daniel',
-                email: 'daniel@devagram.com',
-                _id: '8908790879'
-            },
-            {
-                avatar: '',
-                nome: 'Rafael',
-                email: 'rafael@devagram.com',
-                _id: '6567876'
-            }
-        ])
+        try {
+            const { data } = await usuarioService.pesquisar(termoPesquisado);
+            setResultadoPesquisa(data);
+        } catch (e) {
+            alert('Erro ao pesquisar usuario. ' + e?.response?.data?.erro);
+        }
     }
 
     const aoClicarResultadoPesquisa = (id) => {
-        console.log('aoClicarResultadoPesquisa', {id});
+        setResultadoPesquisa([]);
+        setTermoPesquisado('');
+        router.push(`/perfil/${id}`);
+    }
+
+    const redirecionarParaHome = () => {
+        router.push('/');
     }
 
     return (
@@ -48,6 +45,7 @@ export default function Cabecalho() {
             <div className='conteudoCabecalhoPrincipal'>
                 <div className='logoCabecalhoPrincipal'>
                     <Image
+                        onClick={redirecionarParaHome}
                         src={logoHorizontalImg}
                         alt='logo devagram'
                         layout='fill'
