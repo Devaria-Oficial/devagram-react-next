@@ -16,8 +16,20 @@ export default class UsuarioService extends HttpService {
         }
     }
 
+    async logout() {
+        localStorage.removeItem("nome");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("avatar");
+    }
+
     async cadastro(dados) {
         return this.post('/cadastro', dados);
+    }
+
+    async atualizarPerfil(dados) {
+        return this.put(`/usuario`, dados);
     }
 
     estaAutenticado() {
@@ -26,6 +38,14 @@ export default class UsuarioService extends HttpService {
 
     async pesquisar(termoDaPesquisa) {
         return this.get('/pesquisa?filter=' + termoDaPesquisa);
+    }
+
+    async obterPerfil(idUsuario) {
+        return this.get(`/pesquisa?id=${idUsuario}`);
+    }
+
+    async alternarSeguir(idUsuario) {
+        return this.put(`/seguir?id=${idUsuario}`);
     }
 
     obterInformacoesDoUsuarioLogado() {

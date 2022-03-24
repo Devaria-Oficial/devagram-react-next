@@ -1,6 +1,5 @@
 .cabecalhoComAcoes {
     display: flex;
-    border-bottom: 0.5px solid $cinza1;
     padding-left: 20px;
     padding-right: 20px;
 
@@ -9,5 +8,30 @@
         font-size: 16px;
         text-align: center;
         flex: 1;
+    }
+
+    .cabecalhoComAcoesTextoEsquerda {
+        font-size: 12px;
+        color: $cinza3;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btnAcaoDireita {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        color: $corPrimaria;
+        font-family: $fontBold;
+        font-size: 12px;
+    }
+
+    @media screen and (min-width: $desktopBreakpoint) {
+        .cabecalhoComAcoesTextoEsquerda, .btnAcaoDireita {
+            font-size: 14px;
+        }
     }
 }

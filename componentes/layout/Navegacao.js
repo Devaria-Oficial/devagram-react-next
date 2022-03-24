@@ -21,7 +21,7 @@ const mapaDeRotas = {
     },
     perfil: {
         imagemAtivo: imgUsuarioAtivo,
-        rotasAtivacao: ['/perfil/eu', '/perfil/eu/editar'],
+        rotasAtivacao: ['/perfil/eu', '/perfil/editar'],
         imagemPadrao: imgUsuarioCinza
     }
 }
