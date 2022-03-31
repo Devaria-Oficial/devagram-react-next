@@ -16,4 +16,3 @@ Projeto desenvolvimento para apresentação do react.js e next na formação Dev
 1. configurar as variáveis de ambiente no arquivo `.env.local`
 1. instale as dependencias do projeto `npm i`
 1. execute o comando `npm run dev` para subir a aplicação
-
