@@ -7,6 +7,7 @@ import CabecalhoComAcoes from '../cabecalhoComAcoes';
 import Botao from '../botao';
 import Avatar from '../avatar';
 import UsuarioService from '../../services/UsuarioService';
+import ResultadoPesquisa from '../layout/ResultadoPesquisa';
 
 const usuarioService = new UsuarioService();
 
@@ -15,16 +16,19 @@ export default function CabecalhoPerfil({
     estaNoPerfilPessoal
 }) {
     const [estaSeguindoOUsuario, setEstaSeguindoOUsuario] = useState(false);
+    const [listaDeSeguidoresAberta, setlListaDeSeguidoresAberta] = useState(false);
+    const [listaDeSeguindoAberta, setlListaDeSeguindosAberta] = useState(false);
     const [quantidadeSeguidores, setQuantidadeSeguidores] = useState(0);
     const router = useRouter();
 
     useEffect(() => {
+        console.log("usuario", usuario)
         if (!usuario) {
             return;
         }
 
         setEstaSeguindoOUsuario(usuario.segueEsseUsuario);
-        setQuantidadeSeguidores(usuario.seguidores);
+        setQuantidadeSeguidores(usuario?.seguidores?.length);
     }, [usuario]);
 
     const obterTextoBotaoPrincipal = () => {
@@ -74,6 +78,10 @@ export default function CabecalhoPerfil({
         router.push('/');
     }
 
+    const aoClicarSeguindoSeguidor = (id) => {
+        router.push(`/perfil/${id}`)
+    }
+
     const obterElementoDireitaCabecalho = () => {
         if (estaNoPerfilPessoal) {
             return (
@@ -92,6 +100,34 @@ export default function CabecalhoPerfil({
 
     return (
         <div className='cabecalhoPerfil largura30pctDesktop'>
+            <div className='cabecalhoPrincipal'>
+                {(listaDeSeguidoresAberta || listaDeSeguindoAberta) &&
+                    <div className='resultadoPesquisaContainer seguidoresContainer'>
+                        {listaDeSeguidoresAberta && usuario?.seguidores?.map(r => (
+                            <ResultadoPesquisa
+                                avatar={r.avatar}
+                                nome={r.nome}
+                                email={r.email}
+                                key={r._id}
+                                id={r._id}
+                                onClick={() => aoClicarSeguindoSeguidor(r._id)}
+                            />
+                        ))}
+
+                        {listaDeSeguindoAberta && usuario?.seguindo?.map(r => (
+                            <ResultadoPesquisa
+                                avatar={r.avatar}
+                                nome={r.nome}
+                                email={r.email}
+                                key={r._id}
+                                id={r._id}
+                                onClick={() => aoClicarSeguindoSeguidor(r._id)}
+                            />
+                        ))}
+                    </div>
+                }
+            </div>
+
             <CabecalhoComAcoes
                 iconeEquerda={estaNoPerfilPessoal ? null : imgSetaEsquerda}
                 aoClicarAcaoEsquerda={aoClicarSetaEsquerda}
@@ -110,18 +146,26 @@ export default function CabecalhoPerfil({
                             <span>Publicações</span>
                         </div>
 
-                        <div className='status'>
+                        <div onClick={() => {
+                             setlListaDeSeguidoresAberta(!listaDeSeguidoresAberta)
+                             setlListaDeSeguindosAberta(false)
+                        }} className='status'>
                             <strong>{quantidadeSeguidores}</strong>
                             <span>Seguidores</span>
                         </div>
 
-                        <div className='status'>
-                            <strong>{usuario.seguindo}</strong>
+                        <div className='status'
+                            onClick={() => {
+                                setlListaDeSeguindosAberta(!listaDeSeguindoAberta)
+                                setlListaDeSeguidoresAberta(false)
+                           }}
+                        >
+                            <strong>{usuario?.seguindo?.length}</strong>
                             <span>Seguindo</span>
                         </div>
                     </div>
 
-                    <Botao 
+                    <Botao
                         texto={obterTextoBotaoPrincipal()}
                         cor={obterCorDoBotaoPrincipal()}
                         manipularClique={manipularCliqueBotaoPrincipal}
